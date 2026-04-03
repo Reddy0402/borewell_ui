@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
 
-const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendValue, icon: Icon, color = "teal", live = false }) => {
+const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendValue, icon: Icon, color = "teal", live = false, chartData = null }) => {
     const [value, setValue] = useState(initialValue);
 
     // Simulate live data updates
@@ -43,6 +44,16 @@ const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendVa
         return maps[c] || 'cyber-primary';
     };
 
+    const colorMapHex = {
+        teal: '#0ea5e9',
+        blue: '#0ea5e9',
+        green: '#10b981',
+        amber: '#f59e0b',
+        orange: '#f59e0b',
+        red: '#ef4444',
+        indigo: '#8b5cf6'
+    };
+
     const activeColor = getColorClass(color);
 
     return (
@@ -74,6 +85,38 @@ const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendVa
                     </span>
                 )}
             </div>
+
+            {chartData && (
+                <div className="h-16 mt-6 -mx-4 -mb-4 relative overflow-hidden rounded-b-2xl opacity-90 group-hover:opacity-100 transition-all duration-300">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+                            <defs>
+                                <linearGradient id={`color-${activeColor}`} x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor={colorMapHex[color] || '#0ea5e9'} stopOpacity={0.5} />
+                                    <stop offset="95%" stopColor={colorMapHex[color] || '#0ea5e9'} stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+                            <Tooltip 
+                                contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: `1px solid ${colorMapHex[color] || '#0ea5e9'}50`, borderRadius: '8px', fontSize: '11px', padding: '6px 10px', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
+                                itemStyle={{ color: '#f1f5f9', fontWeight: 'bold' }}
+                                cursor={{ stroke: `${colorMapHex[color] || '#0ea5e9'}`, strokeWidth: 1, strokeDasharray: '4 4' }}
+                                labelStyle={{ display: 'none' }}
+                                formatter={(value) => [`${value} ${unit}`, title]}
+                            />
+                            <Area 
+                                type="monotone" 
+                                dataKey="value" 
+                                stroke={colorMapHex[color] || '#0ea5e9'} 
+                                strokeWidth={3} 
+                                fillOpacity={1}
+                                fill={`url(#color-${activeColor})`}
+                                activeDot={{ r: 5, fill: colorMapHex[color] || '#0ea5e9', stroke: '#020617', strokeWidth: 2, className: 'shadow-neon' }}
+                                animationDuration={1500}
+                            />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+            )}
         </div>
     );
 };

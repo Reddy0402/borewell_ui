@@ -15,13 +15,19 @@ import { Activity, Droplets, ArrowDownToLine, Gauge } from 'lucide-react';
 
 /* Dashboard Content Component */
 const DashboardHome = () => {
+  // Sparkline chart data - Expanded for smoother area curves
+  const waterData = [{ value: 40 }, { value: 40.5 }, { value: 41.5 }, { value: 42 }, { value: 41.8 }, { value: 41 }, { value: 41.5 }, { value: 42.5 }];
+  const pressureData = [{ value: 330 }, { value: 335 }, { value: 345 }, { value: 340 }, { value: 338 }, { value: 342 }, { value: 340 }, { value: 340 }];
+  const depthData = [{ value: 180 }, { value: 180 }, { value: 180 }, { value: 180 }, { value: 180 }, { value: 180 }, { value: 180 }, { value: 180 }];
+  const utilityData = [{ value: 10 }, { value: 15 }, { value: 25 }, { value: 20 }, { value: 15 }, { value: 35 }, { value: 45 }, { value: 30 }];
+
   return (
     <div className="space-y-4 md:space-y-6">
       {/* Section 1: Heading */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-cyber-text-primary">Dashboard Overview</h2>
-          <p className="text-cyber-text-muted uppercase tracking-widest text-[10px] md:text-xs font-semibold mt-1">Real-time monitoring for Borewell #BW-102</p>
+          <p className="text-cyber-text-muted uppercase tracking-widest text-[10px] md:text-xs font-semibold mt-1">Advanced Intelligence Platform</p>
         </div>
         <div className="flex items-center gap-2 text-cyber-text-muted text-[10px] bg-white/5 px-2 py-1 rounded-lg border border-white/10 w-fit">
           <span className="w-1.5 h-1.5 rounded-full bg-cyber-success animate-pulse"></span>
@@ -41,6 +47,7 @@ const DashboardHome = () => {
           icon={Droplets}
           color="teal"
           live={true}
+          chartData={waterData}
         />
         <MetricCard
           title="Borewell Depth"
@@ -51,6 +58,7 @@ const DashboardHome = () => {
           trendValue="0%"
           icon={ArrowDownToLine}
           color="blue"
+          chartData={depthData}
         />
         <MetricCard
           title="Pressure"
@@ -61,6 +69,7 @@ const DashboardHome = () => {
           icon={Gauge}
           color="indigo"
           live={true}
+          chartData={pressureData}
         />
         <MetricCard
           title="Pump Status"
@@ -71,6 +80,7 @@ const DashboardHome = () => {
           trendValue="4h 12m"
           icon={Activity}
           color="green"
+          chartData={utilityData}
         />
       </div>
 
