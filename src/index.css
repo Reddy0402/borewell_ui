@@ -21,3 +21,9 @@
     @apply bg-cyber-primary/20 rounded-full hover:bg-cyber-primary/40 transition-colors;
   }
 }
+
+@keyframes loading-bar {
+  0% { left: -50%; width: 30%; }
+  50% { left: 30%; width: 60%; }
+  100% { left: 100%; width: 30%; }
+}

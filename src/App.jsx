@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
+import LoadingScreen from './components/layout/LoadingScreen';
 import MetricCard from './components/dashboard/MetricCard';
 import AnalyticsCharts from './components/dashboard/AnalyticsCharts';
 import SafetyStatus from './components/dashboard/SafetyStatus';
@@ -120,20 +121,25 @@ const DashboardHome = () => {
 };
 
 function App() {
+  const [isAppReady, setIsAppReady] = useState(false);
+
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<DashboardHome />} />
-          <Route path="/live" element={<LiveMonitoring />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/alerts" element={<Alerts />} />
-          <Route path="/pump" element={<PumpControl />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <>
+      {!isAppReady && <LoadingScreen onComplete={() => setIsAppReady(true)} />}
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<DashboardHome />} />
+            <Route path="/live" element={<LiveMonitoring />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/alerts" element={<Alerts />} />
+            <Route path="/pump" element={<PumpControl />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </>
   );
 }
 
