@@ -29,8 +29,8 @@ const LoadingScreen = ({ onComplete }) => {
   }, []);
 
   useEffect(() => {
-    // 15 seconds total loading time
-    const duration = 15000; 
+    // Faster 4 seconds total loading time
+    const duration = 4000; 
     const interval = 50;
     const step = 100 / (duration / interval);
     
@@ -51,10 +51,10 @@ const LoadingScreen = ({ onComplete }) => {
 
   // Phase Timer
   useEffect(() => {
-     // Switch phrases every 2.7 seconds to cycle through all 6 phases
+     // Switch phrases every 0.8 seconds to cycle through all 6 phases
      const phaseInterval = setInterval(() => {
         setPhaseIndex(prev => Math.min(prev + 1, LOADING_PHASES.length - 1));
-     }, 2700);
+     }, 800);
      return () => clearInterval(phaseInterval);
   }, []);
 
