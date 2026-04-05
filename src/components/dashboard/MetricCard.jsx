@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
 
-const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendValue, icon: Icon, color = "teal", live = false, chartData = null }) => {
+const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendValue, icon: Icon, color = "teal", live = false, chartData = null, statusLabel = null }) => {
     const [value, setValue] = useState(initialValue);
+
+    // Sync state when props change (prevents NaN bugs during view switching)
+    useEffect(() => {
+        setValue(initialValue);
+    }, [initialValue]);
 
     // Simulate live data updates
     useEffect(() => {
@@ -56,11 +61,33 @@ const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendVa
 
     const activeColor = getColorClass(color);
 
+    const getStatusTheme = () => {
+        if (!statusLabel) return 'border-cyber-border hover:border-cyber-primary/40';
+        if (statusLabel === 'DANGER') return 'border-cyber-danger shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-[pulse_2s_ease-in-out_infinite]';
+        if (statusLabel === 'WARNING' || statusLabel === 'MEDIUM') return 'border-cyber-secondary shadow-[0_0_10px_rgba(245,158,11,0.3)]';
+        if (statusLabel === 'GOOD') return 'border-cyber-success/50';
+        return 'border-cyber-border';
+    };
+
+    const getStatusBadgeColor = () => {
+        if (statusLabel === 'DANGER') return 'bg-cyber-danger/20 text-cyber-danger border-cyber-danger/50';
+        if (statusLabel === 'WARNING' || statusLabel === 'MEDIUM') return 'bg-cyber-secondary/20 text-cyber-secondary border-cyber-secondary/50';
+        if (statusLabel === 'GOOD') return 'bg-cyber-success/20 text-cyber-success border-cyber-success/50';
+        return 'bg-cyber-primary/20 text-cyber-primary border-cyber-primary/50';
+    };
+
     return (
-        <div className="bg-cyber-surface/40 backdrop-blur-md rounded-2xl p-6 border border-cyber-border hover:border-cyber-primary/40 transition-all duration-300 group">
+        <div className={`bg-cyber-surface/40 backdrop-blur-md rounded-2xl p-6 border transition-all duration-300 group ${getStatusTheme()}`}>
             <div className="flex items-start justify-between mb-4">
                 <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-cyber-text-muted mb-1">{title}</p>
+                    <div className="flex items-center gap-2 mb-1">
+                        <p className="text-xs font-bold uppercase tracking-wider text-cyber-text-muted">{title}</p>
+                        {statusLabel && (
+                            <span className={`text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded-full border ${getStatusBadgeColor()}`}>
+                                {statusLabel}
+                            </span>
+                        )}
+                    </div>
                     <div className="mt-2 flex items-baseline gap-2">
                         <h3 className="text-3xl font-bold text-cyber-text-primary group-hover:text-cyber-primary transition-colors">{value}</h3>
                         <span className="text-sm font-medium text-cyber-text-muted">{unit}</span>
