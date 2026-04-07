@@ -89,20 +89,20 @@ const LoadingScreen = ({ onComplete }) => {
         {/* Exact Match Logo */}
         <div className="text-center w-full flex justify-center items-center mt-8">
           <div 
-            className="flex items-center justify-center font-sans text-3xl md:text-5xl lg:text-6xl tracking-[0.2em] font-semibold select-none"
+            className="flex items-center justify-center font-sans text-3xl md:text-5xl lg:text-6xl tracking-[0.2em] font-bold select-none"
             style={{ 
               WebkitTextStroke: '1.5px #64748b', 
               color: 'transparent',
-              fontFamily: 'Inter, system-ui, sans-serif'
+              fontFamily: 'Plus Jakarta Sans, sans-serif'
             }}
           >
             <span>PL</span>
-            <div className="relative mx-1 md:mx-2 flex items-center justify-center">
+            <div className="relative mx-2 md:mx-3 flex items-center justify-center scale-110 lg:scale-125">
               <svg 
                 viewBox="0 0 24 24" 
                 className="w-[0.9em] h-[0.9em]" 
                 style={{ 
-                  filter: 'drop-shadow(0 0 12px rgba(45, 212, 191, 0.8))',
+                  filter: 'drop-shadow(0 0 15px rgba(45, 212, 191, 0.9))',
                   transform: 'translateY(-5%)'
                 }}
               >
@@ -116,10 +116,10 @@ const LoadingScreen = ({ onComplete }) => {
         {/* Text and Progress Display */}
         <div className="space-y-6 text-center w-full mt-4">
           
-          <div className="flex items-center justify-center gap-3 text-blue-300 font-mono text-xs md:text-sm tracking-[0.15em] uppercase h-6 drop-shadow-[0_0_5px_rgba(96,165,250,0.5)]">
-            <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse shadow-[0_0_8px_#60a5fa]"></span>
+          <div className="flex items-center justify-center gap-3 text-blue-300 font-mono text-[10px] md:text-xs tracking-[0.15em] uppercase h-8 drop-shadow-[0_0_8px_rgba(96,165,250,0.6)]">
+            <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse shadow-[0_0_8px_#60a5fa]"></span>
             {LOADING_PHASES[phaseIndex]}
-            <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse shadow-[0_0_8px_#60a5fa] opacity-50"></span>
+            <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse shadow-[0_0_8px_#60a5fa] opacity-50"></span>
           </div>
           
           {/* Progress Bar Container */}
@@ -132,7 +132,7 @@ const LoadingScreen = ({ onComplete }) => {
             <div className="absolute top-0 h-full bg-white/40 animate-[loading-bar_1.5s_ease-in-out_infinite]"></div>
           </div>
           
-          <div className="text-blue-400 font-mono text-xl font-bold tracking-widest mt-2">
+          <div className="text-blue-400 font-mono text-2xl md:text-4xl font-bold tracking-[0.2em] mt-6 drop-shadow-neon-sm">
             {progress.toFixed(1)}%
           </div>
         </div>

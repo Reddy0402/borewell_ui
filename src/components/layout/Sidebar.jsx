@@ -5,7 +5,6 @@ import {
     Activity,
     BarChart2,
     AlertTriangle,
-    Zap,
     FileText,
     Settings,
     LogOut
@@ -17,7 +16,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar, isMobileOpen, closeMobile }) => {
         { icon: Activity, label: 'Live Monitoring', path: '/live' },
         { icon: BarChart2, label: 'Sensor Analytics', path: '/analytics' },
         { icon: AlertTriangle, label: 'Alerts & Safety', path: '/alerts' },
-        { icon: Zap, label: 'Pump Control', path: '/pump' },
         { icon: FileText, label: 'Reports', path: '/reports' },
         { icon: Settings, label: 'Settings', path: '/settings' },
     ];
@@ -35,7 +33,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar, isMobileOpen, closeMobile }) => {
             <div
                 className={`
                     h-screen bg-slate-950 text-white flex flex-col fixed left-0 top-0 border-r border-cyber-border z-[70] transition-all duration-300
-                    ${isCollapsed ? 'w-20' : 'w-64'}
+                    ${isCollapsed ? 'w-20' : 'w-56'}
                     ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
                 `}
             >

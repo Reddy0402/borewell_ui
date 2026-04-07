@@ -36,7 +36,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif', 'system-ui'],
+        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif', 'system-ui'],
+        mono: ['JetBrains Mono', 'monospace'],
+        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
       },
       boxShadow: {
         'neon': '0 0 15px rgba(14, 165, 233, 0.4)',

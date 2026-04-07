@@ -22,9 +22,9 @@ const Layout = ({ children }) => {
                 isMobileOpen={isMobileMenuOpen}
                 closeMobile={() => setIsMobileMenuOpen(false)}
             />
-            <div className={`flex-1 flex flex-col transition-all duration-300 ${isCollapsed ? 'lg:ml-20' : 'lg:ml-64'} ml-0`}>
+            <div className={`flex-1 flex flex-col transition-all duration-300 ${isCollapsed ? 'lg:ml-20' : 'lg:ml-56'} ml-0 min-w-0`}>
                 <Header toggleMobileMenu={toggleMobileMenu} />
-                <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+                <main className="flex-1 p-3 overflow-y-auto overflow-x-hidden" style={{ zoom: 0.85 }}>
                     {children}
                 </main>
             </div>

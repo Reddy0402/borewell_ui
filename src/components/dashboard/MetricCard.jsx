@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
 
-const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendValue, icon: Icon, color = "teal", live = false, chartData = null, statusLabel = null }) => {
+const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendValue, icon: Icon, color = "teal", live = false, chartData = null, statusLabel = null, onClick, className = "" }) => {
     const [value, setValue] = useState(initialValue);
 
     // Sync state when props change (prevents NaN bugs during view switching)
@@ -75,36 +75,42 @@ const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendVa
         if (statusLabel === 'GOOD') return 'bg-cyber-success/20 text-cyber-success border-cyber-success/50';
         return 'bg-cyber-primary/20 text-cyber-primary border-cyber-primary/50';
     };
-
     return (
-        <div className={`bg-cyber-surface/40 backdrop-blur-md rounded-2xl p-6 border transition-all duration-300 group ${getStatusTheme()}`}>
-            <div className="flex items-start justify-between mb-4">
+        <div 
+            onClick={onClick}
+            className={`bg-cyber-surface/40 backdrop-blur-md rounded-xl p-4 border transition-all duration-300 group ${getStatusTheme()} ${onClick ? 'cursor-pointer hover:bg-cyber-surface/60' : ''} flex flex-col h-full ${className}`}
+        >
+            <div className="flex items-start justify-between mb-2">
                 <div>
-                    <div className="flex items-center gap-2 mb-1">
-                        <p className="text-xs font-bold uppercase tracking-wider text-cyber-text-muted">{title}</p>
+                    <div className="flex items-center gap-2 mb-2">
+                        <p className="text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.15em] text-cyber-text-muted/70">{title}</p>
                         {statusLabel && (
-                            <span className={`text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded-full border ${getStatusBadgeColor()}`}>
+                            <span className={`text-[7px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded-full border ${getStatusBadgeColor()}`}>
                                 {statusLabel}
                             </span>
                         )}
                     </div>
-                    <div className="mt-2 flex items-baseline gap-2">
-                        <h3 className="text-3xl font-bold text-cyber-text-primary group-hover:text-cyber-primary transition-colors">{value}</h3>
-                        <span className="text-sm font-medium text-cyber-text-muted">{unit}</span>
+                    <div className="mt-1 flex items-baseline gap-2">
+                        <h3 className="text-xl md:text-2xl font-bold font-mono text-cyber-text-primary group-hover:text-cyber-primary transition-colors tracking-tight tabular-nums">
+                            {value}
+                        </h3>
+                        <span className="text-[9px] md:text-[10px] font-semibold text-cyber-text-muted/60">{unit}</span>
                     </div>
                 </div>
-                <div className={`p-3 rounded-xl bg-${activeColor}/10 text-${activeColor} border border-${activeColor}/20 shadow-neon`}>
-                    <Icon size={22} />
+                <div className={`p-2.5 rounded-xl bg-${activeColor}/10 text-${activeColor} border border-${activeColor}/20 shadow-neon flex items-center justify-center`}>
+                    <Icon size={18} strokeWidth={2.5} />
                 </div>
             </div>
 
+            <div className="flex-1" />
+
             <div className="flex items-center justify-between pt-4 border-t border-cyber-border">
                 <div className="flex items-center gap-1.5">
-                    <span className={`${getTrendColor()} flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full bg-black/20`}>
+                    <span className={`${getTrendColor()} flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/20`}>
                         {getTrendIcon()}
                         {trendValue}
                     </span>
-                    <span className="text-[10px] uppercase tracking-wide text-cyber-text-muted font-medium">vs last month</span>
+                    <span className="text-[9px] uppercase tracking-wide text-cyber-text-muted font-semibold">vs last month</span>
                 </div>
                 {subValue && (
                     <span className="text-[10px] font-bold text-cyber-text-secondary bg-white/5 px-2 py-1 rounded-md border border-white/10">
@@ -114,7 +120,7 @@ const MetricCard = ({ title, value: initialValue, unit, subValue, trend, trendVa
             </div>
 
             {chartData && (
-                <div className="h-16 mt-6 -mx-4 -mb-4 relative overflow-hidden rounded-b-2xl opacity-90 group-hover:opacity-100 transition-all duration-300">
+                <div className="h-10 mt-3 -mx-4 -mb-4 relative overflow-hidden rounded-b-2xl opacity-90 group-hover:opacity-100 transition-all duration-300">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
                             <defs>

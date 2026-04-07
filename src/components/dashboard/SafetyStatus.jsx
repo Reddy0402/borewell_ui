@@ -18,30 +18,30 @@ const StatusItem = ({ label, status, message }) => {
     const { icon: Icon, color, bg, border } = getStatusStyles();
 
     return (
-        <div className={`flex items-center justify-between p-4 rounded-xl border ${border} ${bg} transition-all duration-300 group hover:bg-white/5`}>
-            <div className="flex items-center gap-3">
-                <Icon className={`${color} drop-shadow-[0_0_5px_currentColor]`} size={18} />
-                <span className="text-xs font-bold text-cyber-text-primary uppercase tracking-wider">{label}</span>
+        <div className={`flex items-center justify-between p-3 rounded-lg border ${border} ${bg} transition-all duration-300 group hover:bg-white/5`}>
+            <div className="flex items-center gap-2">
+                <Icon className={`${color} drop-shadow-[0_0_5px_currentColor]`} size={14} />
+                <span className="text-[10px] font-bold text-cyber-text-primary uppercase tracking-wider">{label}</span>
             </div>
-            <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-black/20 ${color}`}>{message}</span>
+            <span className={`text-[8px] font-black uppercase tracking-widest px-1.5 py-0.5 rounded bg-black/20 ${color}`}>{message}</span>
         </div>
     );
 };
 
 const SafetyStatus = () => {
     return (
-        <div className="bg-cyber-surface/40 backdrop-blur-md rounded-2xl p-6 border border-cyber-border h-full flex flex-col">
-            <div className="flex items-center justify-between mb-8">
+        <div className="bg-cyber-surface/40 backdrop-blur-md rounded-xl p-4 border border-cyber-border h-full flex flex-col">
+            <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                    <span className="w-1 h-5 bg-cyber-primary rounded-full shadow-neon" />
-                    <h3 className="text-lg font-black text-cyber-text-primary tracking-tight">Safety & Status</h3>
+                    <span className="w-1 h-4 bg-cyber-primary rounded-full shadow-neon" />
+                    <h3 className="text-sm font-black text-cyber-text-primary tracking-tight">Safety & Status</h3>
                 </div>
-                <span className="px-3 py-1.5 rounded-full bg-cyber-success/20 text-cyber-success text-[10px] font-black uppercase tracking-widest border border-cyber-success/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                <span className="px-2 py-1 rounded-full bg-cyber-success/20 text-cyber-success text-[8px] font-black uppercase tracking-widest border border-cyber-success/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
                     System Healthy
                 </span>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
                 <StatusItem
                     label="Dry Run Protection"
                     status="safe"
